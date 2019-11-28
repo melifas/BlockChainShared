@@ -29,7 +29,7 @@ public class ProductManagmentDAO {
                                               rs.getString("TitleOfProduct"),
                                               rs.getInt("Price"),
                                               rs.getString("DescriptionOfProduct"),
-                                              rs.getInt("TimeStamp"),
+                                             (long) rs.getInt("TimeStamp"),
                                               rs.getString("previousHash"),
                                               rs.getString("hash")
                                               );
@@ -58,7 +58,7 @@ public class ProductManagmentDAO {
                         rs.getString("TitleOfProduct"),
                         rs.getInt("Price"),
                         rs.getString("DescriptionOfProduct"),
-                        rs.getInt("TimeStamp"),
+                        rs.getLong("TimeStamp"),
                         rs.getString("previousHash"),
                         rs.getString("hash")
                 );
@@ -86,7 +86,7 @@ public class ProductManagmentDAO {
                         rs.getString("TitleOfProduct"),
                         rs.getInt("Price"),
                         rs.getString("DescriptionOfProduct"),
-                        rs.getInt("TimeStamp"),
+                        rs.getLong("TimeStamp"),
                         rs.getString("previousHash"),
                         rs.getString("hash")
                 );
@@ -113,7 +113,7 @@ public class ProductManagmentDAO {
                         rs.getString("TitleOfProduct"),
                         rs.getInt("Price"),
                         rs.getString("DescriptionOfProduct"),
-                        rs.getInt("TimeStamp"),
+                        rs.getLong("TimeStamp"),
                         rs.getString("previousHash"),
                         rs.getString("hash")
                 );
@@ -140,7 +140,7 @@ public class ProductManagmentDAO {
                         rs.getString("TitleOfProduct"),
                         rs.getInt("Price"),
                         rs.getString("DescriptionOfProduct"),
-                        rs.getInt("TimeStamp"),
+                        rs.getLong("TimeStamp"),
                         rs.getString("previousHash"),
                         rs.getString("hash")
                 );
@@ -164,7 +164,7 @@ public class ProductManagmentDAO {
              ps.setInt(3,product.getPrice());
              ps.setString(4,product.getDescriptionOfProduct());
              //------Την χρονοσφραγίδα και τα hash- previous hash την αποθηκεύουμε στην βάση αυτόματα χωρίς να την ζητάμε απο τον χρήστη-------
-            ps.setInt(5,product.getTimeStamp());
+            ps.setLong(5,product.getTimeStamp());
             ps.setString(6,product.getPreviousHash());
             ps.setString(7,product.getHash());
 

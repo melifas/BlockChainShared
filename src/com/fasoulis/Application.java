@@ -141,7 +141,7 @@ public class Application {
 
 
         if (dao.countProducts()==0) {
-            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct, (int) new Date().getTime(), "0");
+            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), "0");
             product.mineBlock(3);
             int status =dao.addProduct(product);
             System.out.println("Genesis block created");
@@ -151,7 +151,7 @@ public class Application {
                 System.out.println("An error occured");
             }
         }else {
-            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct, (int) new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
+            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
             product.mineBlock(3);
             int status = dao.addProduct(product);
             System.out.println("block created");

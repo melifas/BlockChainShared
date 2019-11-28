@@ -3,7 +3,6 @@ package pojo;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +13,7 @@ public class Product {
 
     private String hash;
     private String previousHash;
-    private int TimeStamp;
+    private Long TimeStamp;
     private int nonce;
 
     private int id;
@@ -30,7 +29,7 @@ public class Product {
 
 //--------- ctor με την data και τα απαραίτητα πεδία δημιουργίας του blockchain--------
 
-    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, int timeStamp,String previousHash) {
+    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
         this.id = id;
         CodeOfProduct = codeOfProduct;
         this.previousHash = previousHash;
@@ -41,8 +40,7 @@ public class Product {
         hash = calculateBlockHash();
     }
     //--------- ctor με την data και τα απαραίτητα πεδία δημιουργίας του blockchain ΑΛΛΑ  ΧΩΡΙΣ ΤΟ ID--------
-    public Product(int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, int timeStamp,String previousHash) {
-        hash = calculateBlockHash();
+    public Product(int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
         this.previousHash = previousHash;
         TimeStamp = timeStamp;
         this.nonce = nonce;
@@ -50,11 +48,12 @@ public class Product {
         TitleOfProduct = titleOfProduct;
         Price = price;
         DescriptionOfProduct = descriptionOfProduct;
+        hash = calculateBlockHash();
     }
 
     //------- Πλήρες ctor---------------
 
-    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, int timeStamp,String previousHash,String hash) {
+    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash,String hash) {
         this.hash = hash;
         this.previousHash = previousHash;
         TimeStamp = timeStamp;
@@ -103,7 +102,7 @@ public class Product {
         return previousHash;
     }
 
-    public int getTimeStamp() {
+    public Long getTimeStamp() {
         return TimeStamp;
     }
 
