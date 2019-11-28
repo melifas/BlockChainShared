@@ -29,7 +29,7 @@ public class ProductManagmentDAO {
                                               rs.getString("TitleOfProduct"),
                                               rs.getInt("Price"),
                                               rs.getString("DescriptionOfProduct"),
-                                             (long) rs.getInt("TimeStamp"),
+                                              rs.getLong("TimeStamp"),
                                               rs.getString("previousHash"),
                                               rs.getString("hash")
                                               );

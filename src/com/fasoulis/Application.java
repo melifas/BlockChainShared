@@ -138,11 +138,13 @@ public class Application {
         System.out.println("Enter product DESCRIPTION: ");
         System.out.println("-------------------------------");
         String DescriptionOfProduct= input.nextLine();
+        //Έναρξη καταγραφής χρόνου
 
+        long startTime = System.nanoTime();
 
         if (dao.countProducts()==0) {
             Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), "0");
-            product.mineBlock(3);
+            product.mineBlock(4);
             int status =dao.addProduct(product);
             System.out.println("Genesis block created");
             if (status==1){
@@ -152,7 +154,7 @@ public class Application {
             }
         }else {
             Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
-            product.mineBlock(3);
+            product.mineBlock(5);
             int status = dao.addProduct(product);
             System.out.println("block created");
 
@@ -162,6 +164,10 @@ public class Application {
                 System.out.println("An error occured");
             }
         }
+        //Πέρας καταγραφής χρόνου
+        long endTime = System.nanoTime();
+        long duration = endTime-startTime;
+        System.out.println("Total time ellapsed: "+(float)duration/1000000000 +" seconds");
     }
 
     //-----------Προσθήκη πολλών προϊόντων ταυτόχρονα------------
