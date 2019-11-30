@@ -1,20 +1,15 @@
 package com.fasoulis;
 
 import dao.ProductManagmentDAO;
-import jdk.swing.interop.SwingInterOpUtils;
-import org.w3c.dom.ls.LSOutput;
 import pojo.Product;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Application {
+
+public class ApplicationThreads {
     static Scanner input = new Scanner(System.in);
     static ProductManagmentDAO dao = new ProductManagmentDAO();
 
@@ -24,7 +19,7 @@ public class Application {
     public static void main(String[] args) {
         boolean quit = false;
         printActions();
-        while(!quit) {
+        while (!quit) {
             System.out.println("\nEnter action: (6 to show available actions)");
             int action = input.nextInt();
             input.nextLine();
@@ -83,9 +78,9 @@ public class Application {
 
 //---------------Επιστρέφει την Λίστα με τα προϊόντα του blockChain---------
 
-    public static void viewProducts(){
+    public static void viewProducts() {
         List<Product> productList = dao.getAllProducts();
-        for (Product product: productList) {
+        for (Product product : productList) {
             displayProduct(product);
         }
         System.out.println(dao.countProducts());
@@ -93,7 +88,7 @@ public class Application {
 
     //--------------------Επιστρέφει ενα προϊόν-------------------------------------
 
-    private static void displayProduct(Product product){
+    private static void displayProduct(Product product) {
         System.out.println("-----------------------------------------------------");
         System.out.println("Product ID " + product.getId());
         System.out.println("Product CODE " + product.getCodeOfProduct());
@@ -108,14 +103,14 @@ public class Application {
         System.out.println(dao.countProducts());
 
     }
-//------------------Προσθήκη ενός προϊόντος-----------------------
-    public static void addProduct(){
 
-System.out.println("-------------------------------");
+    //------------------Προσθήκη ενός προϊόντος-----------------------
+    public static void addProduct() {
+
+        /*System.out.println("-------------------------------");
         System.out.println("Enter product ID: ");
         System.out.println("-------------------------------");
-        int id = input.nextInt();
-
+        int id = input.nextInt();*/
 
         System.out.println("-------------------------------");
         System.out.println("Enter product CODE: ");
@@ -132,59 +127,59 @@ System.out.println("-------------------------------");
         System.out.println("-------------------------------");
         System.out.println("Enter product PRICE: ");
         System.out.println("-------------------------------");
-        int Price= input.nextInt();
+        int Price = input.nextInt();
 
         input.nextLine();
         System.out.println("-------------------------------");
         System.out.println("Enter product DESCRIPTION: ");
         System.out.println("-------------------------------");
-        String DescriptionOfProduct= input.nextLine();
+        String DescriptionOfProduct = input.nextLine();
 
         //Έναρξη καταγραφής χρόνου
         long startTime = System.nanoTime();
 
-        if (dao.countProducts()==0) {
-            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), "0");
+        if (dao.countProducts() == 0) {
+            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct, new Date().getTime(), "0");
             product.mineBlock(4);
-            int status =dao.addProduct(product);
+            int status = dao.addProduct(product);
             System.out.println("Genesis block created");
-            if (status==1){
+            if (status == 1) {
                 System.out.println("Product added successfully");
-            }else{
+            } else {
                 System.out.println("An error occured");
             }
-        }else {
-            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
+        } else {
+            Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct, new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
             product.mineBlock(5);
             int status = dao.addProduct(product);
             System.out.println("block created");
 
-            if (status==1){
+            if (status == 1) {
                 System.out.println("Product/s added successfully");
-            }else{
+            } else {
                 System.out.println("An error occured");
             }
         }
         //Πέρας καταγραφής χρόνου
         long endTime = System.nanoTime();
-        long duration = endTime-startTime;
-        System.out.println("Total time ellapsed: "+(float)duration/1000000000 +" seconds");
+        long duration = endTime - startTime;
+        System.out.println("Total time ellapsed: " + (float) duration / 1000000000 + " seconds");
     }
 
     //-----------Προσθήκη πολλών προϊόντων ταυτόχρονα------------
 
-    public static void addManyProducts(){
+    public static void addManyProducts() {
         System.out.println("How many products do you want to add to block  ?");
         int number = input.nextInt();
 
-        for (int i = 0; i <number ; i++) {
+        for (int i = 0; i < number; i++) {
             addProduct();
         }
     }
 
     //------------Εύρεση προϊόντος με βάση το id------------------
 
-    public static void searchProductById(){
+    public static void searchProductById() {
         System.out.println("-------------------------------");
         System.out.println("Enter product ID: ");
         System.out.println("-------------------------------");
@@ -196,26 +191,25 @@ System.out.println("-------------------------------");
     }
 //------------Εύρεση προϊόντος με βάση το code------------------
 
-    public static void searchProductsByCode(){
-            System.out.println("-------------------------------");
-            System.out.println("Enter product CODE: ");
-            System.out.println("-------------------------------");
-            int code = input.nextInt();
+    public static void searchProductsByCode() {
+        System.out.println("-------------------------------");
+        System.out.println("Enter product CODE: ");
+        System.out.println("-------------------------------");
+        int code = input.nextInt();
 
-            int numberOfProducts = dao.getProductCountByCode(code);
+        int numberOfProducts = dao.getProductCountByCode(code);
 
-            switch (numberOfProducts){
-                case 0:
-                    System.out.println("No such Product found");
-                    break;
-                case 2:
-                    System.out.println("The product exists more than one time with the following details ");
-                    Product product = dao.getProductByCode(code);
-                    displayProduct(product);
+        switch (numberOfProducts) {
+            case 0:
+                System.out.println("No such Product found");
+                break;
+            case 2:
+                System.out.println("The product exists more than one time with the following details ");
+                Product product = dao.getProductByCode(code);
+                displayProduct(product);
 
-                    break;
-            }
+                break;
+        }
     }
-
-
 }
+
