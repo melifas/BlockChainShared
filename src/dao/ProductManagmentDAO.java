@@ -152,6 +152,35 @@ public class ProductManagmentDAO {
         return product;
     }
 
+    //---------------------- Μέθοδος επιστροφής ΛΙΣΤΑΣ προϊόντων απο το code  ---------
+    public List<Product> getProductsByCode(int code){
+        List<Product> products = new ArrayList<>();
+
+        try {
+            Connection connection = DBUtil.getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM blockchain.block WHERE CodeOfProduct = ?");
+            ps.setInt(1,code);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Product product = new Product(rs.getInt("id"),
+                        rs.getInt("CodeOfProduct"),
+                        rs.getString("TitleOfProduct"),
+                        rs.getInt("Price"),
+                        rs.getString("DescriptionOfProduct"),
+                        rs.getLong("TimeStamp"),
+                        rs.getString("previousHash"),
+                        rs.getString("hash")
+                );
+                products.add(product);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+
     //---------------------- Μέθοδος προσθήκης πρoϊόντος απο τον χρήστη στην βάση ---------------
     public int addProduct(Product product){
         int status= 0;

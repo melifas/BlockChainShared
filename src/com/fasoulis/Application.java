@@ -61,7 +61,7 @@ public class Application {
                     break;
                 case 7:
                     viewTimeStatisticsOfProduct();
-
+                    break;
                 default:
                     System.out.println("Invalid Operation!Please try again");
             }
@@ -79,7 +79,9 @@ public class Application {
                 "3  - to search for a product by its id\n" +
                 "4  - to add many products in block chain\n" +
                 "5  - to search for a product by its code\n" +
-                "6  - to print a list of available actions.");
+                "6  - to print a list of available actions\n"+
+                "7  - to view time statistics of a product\n"
+        );
         System.out.println("Choose your action: ");
     }
 
@@ -236,14 +238,16 @@ public class Application {
                 System.out.println("No such Product found");
                 break;
             case 1:
-                System.out.println("Product Exists one time in blockChain with the following details");
+                System.out.println("Product Exists one time in blockChain with the following timestamp");
                 Product product = dao.getProductByCode(code);
                 displayProduct(product);
                 break;
             case 2:
-                System.out.println("The product exists more than one time with the following details ");
-                Product product1 = dao.getProductByCode(code);
-                displayProduct(product1);
+                System.out.println("The product exists more than one time with the following timestamps ");
+                List<Product> productList = dao.getProductsByCode(code);
+                for (Product productListw: productList) {
+                    System.out.println(productListw.getTimeStamp());
+                }
                 break;
         }
     }
