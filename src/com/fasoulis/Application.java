@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class Application {
     static Scanner input = new Scanner(System.in);
     static ProductManagmentDAO dao = new ProductManagmentDAO();
+    final static int prefix = 5;
 
 
     public static List<Product> blockchain = new ArrayList<Product>();
@@ -58,6 +59,8 @@ public class Application {
                 case 6:
                     printActions();
                     break;
+                case 7:
+                    viewTimeStatisticsOfProduct();
 
                 default:
                     System.out.println("Invalid Operation!Please try again");
@@ -111,10 +114,10 @@ public class Application {
 //------------------Προσθήκη ενός προϊόντος-----------------------
     public static void addProduct(){
 
-System.out.println("-------------------------------");
+/*System.out.println("-------------------------------");
         System.out.println("Enter product ID: ");
         System.out.println("-------------------------------");
-        int id = input.nextInt();
+        int id = input.nextInt();*/
 
 
         System.out.println("-------------------------------");
@@ -145,7 +148,7 @@ System.out.println("-------------------------------");
 
         if (dao.countProducts()==0) {
             Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), "0");
-            product.mineBlock(4);
+            product.mineBlock(prefix);
             int status =dao.addProduct(product);
             System.out.println("Genesis block created");
             if (status==1){
@@ -155,7 +158,7 @@ System.out.println("-------------------------------");
             }
         }else {
             Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), dao.getProductById(dao.countProducts()).getHash());
-            product.mineBlock(5);
+            product.mineBlock(prefix);
             int status = dao.addProduct(product);
             System.out.println("block created");
 
@@ -208,12 +211,41 @@ System.out.println("-------------------------------");
                 case 0:
                     System.out.println("No such Product found");
                     break;
-                case 2:
-                    System.out.println("The product exists more than one time with the following details ");
+                case 1:
+                    System.out.println("Product Exists one time in blockChain with the following details");
                     Product product = dao.getProductByCode(code);
                     displayProduct(product);
                     break;
+                case 2:
+                    System.out.println("The product exists more than one time with the following details ");
+                    Product product1 = dao.getProductByCode(code);
+                    displayProduct(product1);
+                    break;
             }
+    }
+    //------------Εύρεση χρονικών σφραγίδων(timestamps) ενος προιόντος με βάση το code του------------------
+    private static void viewTimeStatisticsOfProduct() {
+        System.out.println("-------------------------------");
+        System.out.println("Enter product CODE: ");
+        System.out.println("-------------------------------");
+        int code = input.nextInt();
+
+        int numberOfProducts = dao.getProductCountByCode(code);
+        switch (numberOfProducts){
+            case 0:
+                System.out.println("No such Product found");
+                break;
+            case 1:
+                System.out.println("Product Exists one time in blockChain with the following details");
+                Product product = dao.getProductByCode(code);
+                displayProduct(product);
+                break;
+            case 2:
+                System.out.println("The product exists more than one time with the following details ");
+                Product product1 = dao.getProductByCode(code);
+                displayProduct(product1);
+                break;
+        }
     }
 
 
