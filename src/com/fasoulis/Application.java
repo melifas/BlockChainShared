@@ -212,7 +212,6 @@ System.out.println("-------------------------------");
                     System.out.println("The product exists more than one time with the following details ");
                     Product product = dao.getProductByCode(code);
                     displayProduct(product);
-
                     break;
             }
     }
