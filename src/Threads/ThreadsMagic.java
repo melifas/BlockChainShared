@@ -10,7 +10,15 @@ public class ThreadsMagic implements  Runnable {
 
     private String hash;
     private String previousHash;
-    private String data;
+    //-----Αντι για data------
+    //private String data;
+    private int id;
+    private int CodeOfProduct;
+    private String TitleOfProduct;
+    private int Price;
+    private String DescriptionOfProduct;
+
+    //--------------------------------------------
     private long timeStamp;
     private ArrayList<Integer> buffer;
     private int start,end;
@@ -18,10 +26,18 @@ public class ThreadsMagic implements  Runnable {
     private int nonce=0;
     private int prefix;
 
-    public ThreadsMagic(String data , String previousHash , long timeStamp ,int start ,int end ,Object lock ,int prefix , ArrayList<Integer> buffer) {
+
+    public ThreadsMagic(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct , String previousHash , long timeStamp ,int start ,int end ,Object lock ,int prefix , ArrayList<Integer> buffer) {
         this.start = start;
         this.end = end;
-        this.data = data;
+        //---------Αντι για data----------
+        //this.data = data;
+        this.id = id;
+        this.CodeOfProduct = codeOfProduct;
+        this.TitleOfProduct = titleOfProduct;
+        this.Price = price;
+        this.DescriptionOfProduct = descriptionOfProduct;
+        //----------------------------------------------
         this.previousHash = previousHash;
         this.timeStamp = timeStamp;
         this.hash = calculateBlockHash();
@@ -76,7 +92,7 @@ public class ThreadsMagic implements  Runnable {
     }
 
     public String calculateBlockHash() {
-        String dataToHash = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data;
+        String dataToHash = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + Integer.toString(id)+ Integer.toString(CodeOfProduct) + TitleOfProduct + Integer.toString(Price) + DescriptionOfProduct;
         MessageDigest digest = null;
         byte[] bytes = null;
         try {

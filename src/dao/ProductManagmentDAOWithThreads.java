@@ -1,16 +1,19 @@
+/*
 package dao;
 
-import dbutil.DBUtil;
-import pojo.Product;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+        import dbutil.DBUtil;
+        import pojo.Product;
+        import pojo.ProductWithThreads;
+        import java.sql.*;
+        import java.util.ArrayList;
+        import java.util.List;
+
 // Ακολουθούν οι μέθοδοι επεξεργασίας μεταξύ εφαρμογής και βάσης(το γνωστό Repository)
 
-public class ProductManagmentDAO {
- // ---------Μέθοδος επιστροφής ΟΛΩΝ ΤΩΝ προϊόντων του BlockChain--------------------------
-    public List<Product> getAllProducts(){
-        List<Product> products = new ArrayList<>();
+public class ProductManagmentDAOWithThreads {
+    // ---------Μέθοδος επιστροφής ΟΛΩΝ ΤΩΝ προϊόντων του BlockChain--------------------------
+    public List<ProductWithThreads> getAllProducts(){
+        List<ProductWithThreads> products = new ArrayList<>();
         try {
             Connection connection = DBUtil.getConnection();
             Statement st = connection.createStatement();
@@ -18,14 +21,14 @@ public class ProductManagmentDAO {
 
             while (rs.next()){
                 Product product = new Product(rs.getInt("id"),
-                                              rs.getInt("CodeOfProduct"),
-                                              rs.getString("TitleOfProduct"),
-                                              rs.getInt("Price"),
-                                              rs.getString("DescriptionOfProduct"),
-                                              rs.getLong("TimeStamp"),
-                                              rs.getString("previousHash"),
-                                              rs.getString("hash")
-                                              );
+                        rs.getInt("CodeOfProduct"),
+                        rs.getString("TitleOfProduct"),
+                        rs.getInt("Price"),
+                        rs.getString("DescriptionOfProduct"),
+                        rs.getLong("TimeStamp"),
+                        rs.getString("previousHash"),
+                        rs.getString("hash")
+                );
                 products.add(product);
             }
             DBUtil.closeConnection(connection);
@@ -60,7 +63,7 @@ public class ProductManagmentDAO {
         }
         return counter;
     }
- //---------------------- Μέθοδος επιστροφής ενός προϊόντος απο το id ---------
+    //---------------------- Μέθοδος επιστροφής ενός προϊόντος απο το id ---------
 
     public Product getProductById(int id){
         Product product=null;
@@ -86,7 +89,7 @@ public class ProductManagmentDAO {
 
         return product;
     }
-//-----------Μέθοδος επιστροφής ΑΡΙΘΜΟΥ προϊόντων με βάση το code τους-------------------------------
+    //-----------Μέθοδος επιστροφής ΑΡΙΘΜΟΥ προϊόντων με βάση το code τους-------------------------------
     public int getProductCountByCode(int code){
         List<Product> products = new ArrayList<>();
         try {
@@ -165,20 +168,21 @@ public class ProductManagmentDAO {
         int status= 0;
         try {
             Connection connection = DBUtil.getConnection();
-             PreparedStatement ps = connection.prepareStatement("INSERT INTO blockchain.block (CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,TimeStamp,previousHash,hash)  VALUES (?,?,?,?,?,?,?)");
-             ps.setInt(1,product.getCodeOfProduct());
-             ps.setString(2,product.getTitleOfProduct());
-             ps.setInt(3,product.getPrice());
-             ps.setString(4,product.getDescriptionOfProduct());
-             //------Την χρονοσφραγίδα και τα hash- previous hash την αποθηκεύουμε στην βάση αυτόματα χωρίς να την ζητάμε απο τον χρήστη-------
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO blockchain.block (CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,TimeStamp,previousHash,hash)  VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1,product.getCodeOfProduct());
+            ps.setString(2,product.getTitleOfProduct());
+            ps.setInt(3,product.getPrice());
+            ps.setString(4,product.getDescriptionOfProduct());
+            //------Την χρονοσφραγίδα και τα hash- previous hash την αποθηκεύουμε στην βάση αυτόματα χωρίς να την ζητάμε απο τον χρήστη-------
             ps.setLong(5,product.getTimeStamp());
             ps.setString(6,product.getPreviousHash());
             ps.setString(7,product.getHash());
 
-             status = ps.executeUpdate();
+            status = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return status;
     }
 }
+*/

@@ -1,7 +1,7 @@
+/*
 package pojo;
 
 import Threads.ThreadsMagic;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Product {
+public class ProductWithThreads {
 
     private static Logger logger = Logger.getLogger(Product.class.getName());
 
@@ -22,13 +22,12 @@ public class Product {
     private String TitleOfProduct;
     private int Price;
     private String DescriptionOfProduct;
-
     //-----------Default constructor--------------------------------------------
-    public Product() {
+    public ProductWithThreads() {
     }
 //--------- ctor με την data και τα απαραίτητα πεδία δημιουργίας του blockchain--------
 
-    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
+    public ProductWithThreads(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
         this.id = id;
         CodeOfProduct = codeOfProduct;
         this.previousHash = previousHash;
@@ -39,7 +38,7 @@ public class Product {
         hash = calculateBlockHash();
     }
     //--------- ctor με την data και τα απαραίτητα πεδία δημιουργίας του blockchain ΑΛΛΑ  ΧΩΡΙΣ ΤΟ ID--------
-    public Product(int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
+    public ProductWithThreads(int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
         this.previousHash = previousHash;
         TimeStamp = timeStamp;
         this.nonce = nonce;
@@ -50,7 +49,7 @@ public class Product {
         hash = calculateBlockHash();
     }
     //------- Πλήρες ctor------------------------------------------------------------------------
-    public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash,String hash) {
+    public ProductWithThreads(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash,String hash) {
         this.hash = hash;
         this.previousHash = previousHash;
         TimeStamp = timeStamp;
@@ -60,26 +59,17 @@ public class Product {
         Price = price;
         DescriptionOfProduct = descriptionOfProduct;
     }
-//----------------------------------------Ακολουθούν μέθοδοι mining------------------------------------
-   /* public String mineBlock(int prefix) {
-        String prefixString = new String(new char[prefix]).replace('\0', '0');
-        while (!hash.substring(0, prefix).equals(prefixString)) {
-            nonce++;
-            hash = calculateBlockHash();
-        }
-        return hash;
-    }*/
-
+    //----------------------------------------Ακολουθούν μέθοδοι mining------------------------------------
     public String mineBlock(int prefix) {
         Object lock = new Object();
         ArrayList<Integer> buffer = new ArrayList<>();
 
 
         synchronized (lock) {
-            Thread t1 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x00000000,0x03FFFFFF,lock,prefix,buffer));
-            Thread t2 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x40000000,0x7FFFFFFF,lock,prefix,buffer));
-            Thread t3 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x80000000,0xBFFFFFFF,lock,prefix,buffer));
-            Thread t4 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0xC0000000,0xFFFFFFFF,lock,prefix,buffer));
+            Thread t1 = new Thread(new ThreadsMagic(data,previousHash,timeStamp,0x00000000,0x03FFFFFF,lock,prefix,buffer));
+            Thread t2 = new Thread(new ThreadsMagic(data,previousHash,timeStamp,0x40000000,0x7FFFFFFF,lock,prefix,buffer));
+            Thread t3 = new Thread(new ThreadsMagic(data,previousHash,timeStamp,0x80000000,0xBFFFFFFF,lock,prefix,buffer));
+            Thread t4 = new Thread(new ThreadsMagic(data,previousHash,timeStamp,0xC0000000,0xFFFFFFFF,lock,prefix,buffer));
 
 
             t1.start();
@@ -116,7 +106,7 @@ public class Product {
         }
         return buffer.toString();
     }
-//-------------------------getters and setters----------------------------------------
+    //-------------------------getters and setters----------------------------------------
     public static Logger getLogger() {
         return logger;
     }
@@ -147,14 +137,6 @@ public class Product {
     public String getDescriptionOfProduct() {
         return DescriptionOfProduct;
     }
-    public static void setLogger(Logger logger) { Product.logger = logger; }
-    public void setHash(String hash) { this.hash = hash; }
-    public void setPreviousHash(String previousHash) { this.previousHash = previousHash; }
-    public void setTimeStamp(Long timeStamp) { TimeStamp = timeStamp; }
-    public void setNonce(int nonce) { this.nonce = nonce; }
-    public void setId(int id) { this.id = id; }
-    public void setCodeOfProduct(int codeOfProduct) { CodeOfProduct = codeOfProduct; }
-    public void setTitleOfProduct(String titleOfProduct) { TitleOfProduct = titleOfProduct; }
-    public void setPrice(int price) { Price = price; }
-    public void setDescriptionOfProduct(String descriptionOfProduct) { DescriptionOfProduct = descriptionOfProduct; }
 }
+
+*/

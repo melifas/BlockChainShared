@@ -1,26 +1,29 @@
+/*
 package com.fasoulis;
 
-import dao.ProductManagmentDAO;
-import jdk.swing.interop.SwingInterOpUtils;
-import org.w3c.dom.ls.LSOutput;
-import pojo.Product;
+        import dao.ProductManagmentDAO;
+        import dao.ProductManagmentDAOWithThreads;
+        import jdk.swing.interop.SwingInterOpUtils;
+        import org.w3c.dom.ls.LSOutput;
+        import pojo.Product;
+        import pojo.ProductWithThreads;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+        import java.sql.Connection;
+        import java.sql.DriverManager;
+        import java.sql.SQLException;
+        import java.sql.Statement;
+        import java.util.ArrayList;
+        import java.util.Date;
+        import java.util.List;
+        import java.util.Scanner;
 
-public class Application {
+public class ApplicationThreads {
     static Scanner input = new Scanner(System.in);
-    static ProductManagmentDAO dao = new ProductManagmentDAO();
-    final static int prefix = 4;
+    static ProductManagmentDAOWithThreads dao = new ProductManagmentDAOWithThreads();
+    final static int prefix = 5;
 
 
-    public static List<Product> blockchain = new ArrayList<Product>();
+    public static List<ProductWithThreads> blockchain = new ArrayList<ProductWithThreads>();
 
     public static void main(String[] args) {
         boolean quit = false;
@@ -79,8 +82,8 @@ public class Application {
 //---------------Επιστρέφει την Λίστα με τα προϊόντα του blockChain---------
 
     public static void viewProducts(){
-        List<Product> productList = dao.getAllProducts();
-        for (Product product: productList) {
+        List<ProductWithThreads> productList = dao.getAllProducts();
+        for (ProductWithThreads product: productList) {
             displayProduct(product);
         }
     }
@@ -98,13 +101,15 @@ public class Application {
         System.out.println("Product Hash " + product.getHash());
         System.out.println("-----------------------------------------------------");
     }
-//------------------Προσθήκη ενός προϊόντος-----------------------
+    //------------------Προσθήκη ενός προϊόντος-----------------------
     public static void addProduct(){
 
+*/
 /*System.out.println("-------------------------------");
         System.out.println("Enter product ID: ");
         System.out.println("-------------------------------");
-        int id = input.nextInt();*/
+        int id = input.nextInt();*//*
+
 
         System.out.println("-------------------------------");
         System.out.println("Enter product CODE: ");
@@ -182,27 +187,27 @@ public class Application {
 //------------Εύρεση προϊόντος με βάση το code------------------
 
     public static void searchProductsByCode(){
-            System.out.println("-------------------------------");
-            System.out.println("Enter product CODE: ");
-            System.out.println("-------------------------------");
-            int code = input.nextInt();
+        System.out.println("-------------------------------");
+        System.out.println("Enter product CODE: ");
+        System.out.println("-------------------------------");
+        int code = input.nextInt();
 
-            int numberOfProducts = dao.getProductCountByCode(code);
-            switch (numberOfProducts){
-                case 0:
-                    System.out.println("No such Product found");
-                    break;
-                case 1:
-                    System.out.println("Product Exists one time in blockChain with the following details");
-                    Product product = dao.getProductByCode(code);
-                    displayProduct(product);
-                    break;
-                case 2:
-                    System.out.println("The product exists more than one time with the following details ");
-                    Product product1 = dao.getProductByCode(code);
-                    displayProduct(product1);
-                    break;
-            }
+        int numberOfProducts = dao.getProductCountByCode(code);
+        switch (numberOfProducts){
+            case 0:
+                System.out.println("No such Product found");
+                break;
+            case 1:
+                System.out.println("Product Exists one time in blockChain with the following details");
+                Product product = dao.getProductByCode(code);
+                displayProduct(product);
+                break;
+            case 2:
+                System.out.println("The product exists more than one time with the following details ");
+                Product product1 = dao.getProductByCode(code);
+                displayProduct(product1);
+                break;
+        }
     }
     //------------Εύρεση χρονικών σφραγίδων(timestamps) ενος προιόντος με βάση το code του------------------
     private static void viewTimeStatisticsOfProduct() {
@@ -231,3 +236,5 @@ public class Application {
         }
     }
 }
+
+*/
