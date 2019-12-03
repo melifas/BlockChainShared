@@ -35,27 +35,21 @@ public class Application {
                     System.out.println("\nShutting down...");
                     quit = true;
                     break;
-
                 case 1:
                     viewProducts();
                     break;
-
                 case 2:
                     addProduct();
                     break;
-
                 case 3:
                     searchProductById();
                     break;
-
                 case 4:
                     addManyProducts();
                     break;
-
                 case 5:
                     searchProductsByCode();
                     break;
-
                 case 6:
                     printActions();
                     break;
@@ -65,9 +59,7 @@ public class Application {
                 default:
                     System.out.println("Invalid Operation!Please try again");
             }
-
         }
-
     }
 
     //-----------Μέθοδος εκτύπωσης διαθέσιμων λειτουργιών προς τον χρήστη--------
@@ -84,8 +76,6 @@ public class Application {
         );
         System.out.println("Choose your action: ");
     }
-
-
 //---------------Επιστρέφει την Λίστα με τα προϊόντα του blockChain---------
 
     public static void viewProducts(){
@@ -93,9 +83,7 @@ public class Application {
         for (Product product: productList) {
             displayProduct(product);
         }
-        System.out.println(dao.countProducts());
     }
-
     //--------------------Επιστρέφει ενα προϊόν-------------------------------------
 
     private static void displayProduct(Product product){
@@ -109,9 +97,6 @@ public class Application {
         System.out.println("Product Previous Hash " + product.getPreviousHash());
         System.out.println("Product Hash " + product.getHash());
         System.out.println("-----------------------------------------------------");
-
-        System.out.println(dao.countProducts());
-
     }
 //------------------Προσθήκη ενός προϊόντος-----------------------
     public static void addProduct(){
@@ -120,7 +105,6 @@ public class Application {
         System.out.println("Enter product ID: ");
         System.out.println("-------------------------------");
         int id = input.nextInt();*/
-
 
         System.out.println("-------------------------------");
         System.out.println("Enter product CODE: ");
@@ -147,7 +131,6 @@ public class Application {
 
         //Έναρξη καταγραφής χρόνου
         long startTime = System.nanoTime();
-
         if (dao.countProducts()==0) {
             Product product = new Product(CodeOfProduct, TitleOfProduct, Price, DescriptionOfProduct,new Date().getTime(), "0");
             product.mineBlock(prefix);
@@ -175,7 +158,6 @@ public class Application {
         long duration = endTime-startTime;
         System.out.println("Total time ellapsed: "+(float)duration/1000000000 +" seconds");
     }
-
     //-----------Προσθήκη πολλών προϊόντων ταυτόχρονα------------
 
     public static void addManyProducts(){
@@ -186,7 +168,6 @@ public class Application {
             addProduct();
         }
     }
-
     //------------Εύρεση προϊόντος με βάση το id------------------
 
     public static void searchProductById(){
@@ -196,7 +177,6 @@ public class Application {
         int id = input.nextInt();
 
         Product product = dao.getProductById(id);
-
         displayProduct(product);
     }
 //------------Εύρεση προϊόντος με βάση το code------------------
@@ -208,7 +188,6 @@ public class Application {
             int code = input.nextInt();
 
             int numberOfProducts = dao.getProductCountByCode(code);
-
             switch (numberOfProducts){
                 case 0:
                     System.out.println("No such Product found");
@@ -251,6 +230,4 @@ public class Application {
                 break;
         }
     }
-
-
 }

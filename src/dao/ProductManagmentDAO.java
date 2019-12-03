@@ -9,15 +9,10 @@ import java.util.List;
 
 // Ακολουθούν οι μέθοδοι επεξεργασίας μεταξύ εφαρμογής και βάσης(το γνωστό Repository)
 
-
-
 public class ProductManagmentDAO {
-
  // ---------Μέθοδος επιστροφής ΟΛΩΝ ΤΩΝ προϊόντων του BlockChain--------------------------
     public List<Product> getAllProducts(){
-
         List<Product> products = new ArrayList<>();
-
         try {
             Connection connection = DBUtil.getConnection();
             Statement st = connection.createStatement();
@@ -41,11 +36,8 @@ public class ProductManagmentDAO {
         }
         return products;
     }
-
-
     //----------------------------Μέθοδος επιστροφής ΠΛΗΘΟΥΣ ΠΡΟΙΟΝΤΩΝ ΤΟΥ blocChain-----------------
     public int countProducts(){
-
         int counter = 0;
         try {
             Connection connection = DBUtil.getConnection();
@@ -74,7 +66,6 @@ public class ProductManagmentDAO {
 
     public Product getProductById(int id){
         Product product=null;
-
         try {
             Connection connection = DBUtil.getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM blockchain.block WHERE id = ?");
@@ -97,11 +88,9 @@ public class ProductManagmentDAO {
 
         return product;
     }
-
 //-----------Μέθοδος επιστροφής ΑΡΙΘΜΟΥ προϊόντων με βάση το code τους-------------------------------
     public int getProductCountByCode(int code){
         List<Product> products = new ArrayList<>();
-
         try {
             Connection connection = DBUtil.getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM blockchain.block WHERE CodeOfProduct = ?");
@@ -124,11 +113,9 @@ public class ProductManagmentDAO {
         }
         return products.size();
     }
-
     //---------------------- Μέθοδος επιστροφής ενός προϊόντος απο το code  ---------
     public Product getProductByCode(int code){
         Product product=null;
-
         try {
             Connection connection = DBUtil.getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM blockchain.block WHERE CodeOfProduct = ?");
@@ -148,14 +135,11 @@ public class ProductManagmentDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return product;
     }
-
     //---------------------- Μέθοδος επιστροφής ΛΙΣΤΑΣ προϊόντων απο το code  ---------
     public List<Product> getProductsByCode(int code){
         List<Product> products = new ArrayList<>();
-
         try {
             Connection connection = DBUtil.getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM blockchain.block WHERE CodeOfProduct = ?");
@@ -176,15 +160,11 @@ public class ProductManagmentDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return products;
     }
-
-
     //---------------------- Μέθοδος προσθήκης πρoϊόντος απο τον χρήστη στην βάση ---------------
     public int addProduct(Product product){
         int status= 0;
-
         try {
             Connection connection = DBUtil.getConnection();
              PreparedStatement ps = connection.prepareStatement("INSERT INTO blockchain.block (CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,TimeStamp,previousHash,hash)  VALUES (?,?,?,?,?,?,?)");
@@ -202,6 +182,5 @@ public class ProductManagmentDAO {
             e.printStackTrace();
         }
         return status;
-
     }
 }

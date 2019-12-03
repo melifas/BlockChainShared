@@ -10,23 +10,18 @@ public class Product {
 
     private static Logger logger = Logger.getLogger(Product.class.getName());
 
-
     private String hash;
     private String previousHash;
     private Long TimeStamp;
     private int nonce;
-
     private int id;
-
     private int CodeOfProduct;
     private String TitleOfProduct;
     private int Price;
     private String DescriptionOfProduct;
-
+//-----------Default constructor--------------------------------------------
     public Product() {
     }
-
-
 //--------- ctor με την data και τα απαραίτητα πεδία δημιουργίας του blockchain--------
 
     public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash) {
@@ -50,9 +45,7 @@ public class Product {
         DescriptionOfProduct = descriptionOfProduct;
         hash = calculateBlockHash();
     }
-
-    //------- Πλήρες ctor---------------
-
+    //------- Πλήρες ctor------------------------------------------------------------------------
     public Product(int id,int codeOfProduct,String titleOfProduct,int price,String descriptionOfProduct, Long timeStamp,String previousHash,String hash) {
         this.hash = hash;
         this.previousHash = previousHash;
@@ -63,7 +56,7 @@ public class Product {
         Price = price;
         DescriptionOfProduct = descriptionOfProduct;
     }
-
+//----------------------------------------Ακολουθούν μέθοδοι mining------------------------------------
     public String mineBlock(int prefix) {
         String prefixString = new String(new char[prefix]).replace('\0', '0');
         while (!hash.substring(0, prefix).equals(prefixString)) {
@@ -89,43 +82,34 @@ public class Product {
         }
         return buffer.toString();
     }
-
+//-------------------------getters and setters----------------------------------------
     public static Logger getLogger() {
         return logger;
     }
-
     public String getHash() {
         return hash;
     }
-
     public String getPreviousHash() {
         return previousHash;
     }
-
     public Long getTimeStamp() {
         return TimeStamp;
     }
-
     public int getNonce() {
         return nonce;
     }
-
     public int getId() {
         return id;
     }
-
     public int getCodeOfProduct() {
         return CodeOfProduct;
     }
-
     public String getTitleOfProduct() {
         return TitleOfProduct;
     }
-
     public int getPrice() {
         return Price;
     }
-
     public String getDescriptionOfProduct() {
         return DescriptionOfProduct;
     }
