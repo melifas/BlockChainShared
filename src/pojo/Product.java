@@ -76,10 +76,10 @@ public class Product {
 
 
         synchronized (lock) {
-            Thread t1 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x00000000,0x03FFFFFF,lock,prefix,buffer));
-            Thread t2 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x40000000,0x7FFFFFFF,lock,prefix,buffer));
-            Thread t3 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0x80000000,0xBFFFFFFF,lock,prefix,buffer));
-            Thread t4 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0xC0000000,0xFFFFFFFF,lock,prefix,buffer));
+            Thread t1 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,0,536870911,lock,prefix,buffer));
+            Thread t2 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,536870912,1073741824,lock,prefix,buffer));
+            Thread t3 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,1073741824,1610612736,lock,prefix,buffer));
+            Thread t4 = new Thread(new ThreadsMagic(id,CodeOfProduct,TitleOfProduct,Price,DescriptionOfProduct,previousHash,TimeStamp,1610612737,2147483647,lock,prefix,buffer));
 
 
             t1.start();
